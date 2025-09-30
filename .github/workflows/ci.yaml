@@ -27,5 +27,4 @@ jobs:
           context: .
           push: true
           tags: |
-            strrst30/python-app:latest
-            strrst30/python-app:${{ github.sha }}
+            strrst30/python-app:${GITHUB_SHA::6}
