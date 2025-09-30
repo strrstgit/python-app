@@ -12,6 +12,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+
+      - name: shorten commit id
+         shell: bash
+         run: |
+           echo "COMMIT_ID=${GITHUB_SHA::6}" >> "$GITHUB_ENV"
+           
+
       - name: Checkout code
         uses: actions/checkout@v4
 
@@ -26,4 +33,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: strrst30/python-app:${{ github.sha }}
+          tags: strrst30/python-app:${{ env.COMMIT_ID }}
