@@ -23,4 +23,4 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: strrst30/python-app:${GITHUB_SHA::6}
+          tags: strrst30/python-app:${GITHUB_SHA}
