@@ -14,11 +14,11 @@ jobs:
     steps:
 
       - name: shorten commit id
-         shell: bash
-         run: |
-           echo "COMMIT_ID=${GITHUB_SHA::6}" >> "$GITHUB_ENV"
+        shell: bash
+        run: |
+          echo "COMMIT_ID=${GITHUB_SHA::6}" >> "$GITHUB_ENV"
            
-
+      
       - name: Checkout code
         uses: actions/checkout@v4
 
