@@ -3,7 +3,7 @@ replicaCount: 1
 image:
   repository: strrst30/python-app
   pullPolicy: IfNotPresent
-  tag: []
+  tag: "v3"   # fixed
 
 imagePullSecrets: []
 nameOverride: ""
@@ -37,7 +37,7 @@ ingress:
       paths:
         - path: /
           pathType: Prefix
-  tls: v3
+  tls: []   # fixed (no TLS for now)
 
 resources:
   requests:
@@ -46,7 +46,7 @@ resources:
 
 livenessProbe:
   httpGet:
-    path: /          # fixed: use root path
+    path: /
     port: 5000
   initialDelaySeconds: 10
   periodSeconds: 10
@@ -55,7 +55,7 @@ livenessProbe:
 
 readinessProbe:
   httpGet:
-    path: /          # fixed: use root path
+    path: /
     port: 5000
   initialDelaySeconds: 5
   periodSeconds: 10
