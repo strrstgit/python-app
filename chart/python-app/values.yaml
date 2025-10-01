@@ -37,7 +37,7 @@ ingress:
       paths:
         - path: /
           pathType: Prefix
-  tls: []
+  tls: v3
 
 resources:
   requests:
