@@ -23,10 +23,13 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
+
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
           context: .
           push: true
           tags: strrst30/python-app:${{ env.COMMIT_ID }}
- 
+     outputs:
+       commit_id: ${{ env.COMMIT_ID }}     
+           
