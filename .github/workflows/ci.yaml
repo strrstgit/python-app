@@ -37,12 +37,14 @@ jobs:
              curl -sSL -o argocd https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64 
              chmod +x argocd
              sudo mv ./argocd /usr/local/bin/argocd
-      - name: Argocd app sync
+      - name: ArgoCD Login
         shell: bash
-        run: argocd login argocd-server.argocd \
-            --insecure  \
-            --grpc-web \
-            --username admin \
-            --password  ${{ secrets.ARGOCD_PASSWORD }}
+        run: |
+          argocd login argocd-server.argocd \
+          --insecure \
+          --grpc-web \
+          --username admin \
+          --password "${{ secrets.ARGOCD_ADMIN_PASSWORD }}"
+      - name: Sync ArgoCD App
+        run: |
           argocd app sync python-app
-
