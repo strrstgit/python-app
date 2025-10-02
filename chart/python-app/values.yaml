@@ -6,13 +6,28 @@ image:
   tag: latest   
 
 imagePullSecrets: []
+
 nameOverride: ""
 fullnameOverride: ""
+
 serviceAccount:
   create: false
+  automount: true
+  annotations: {}
+  name: ""
+
+podAnnotations: {}
+podLabels: {}
+
+podSecurityContext: {}
+securityContext: {}
+
 service:
   type: ClusterIP
   port: 5000
+
+httpRoute:
+  enabled: false
 
 ingress:
   enabled: true
@@ -23,16 +38,19 @@ ingress:
       paths:
         - path: /
           pathType: Prefix
-  tls: []
+  tls: []  
 
 resources:
   requests:
     cpu: 50m
     memory: 50M
+  limits:
+    cpu: 200m
+    memory: 128M
 
 livenessProbe:
   httpGet:
-    path: /api/v1/healthz   
+    path: /api/v1/healthz
     port: 5000
   initialDelaySeconds: 10
   periodSeconds: 10
@@ -41,7 +59,7 @@ livenessProbe:
 
 readinessProbe:
   httpGet:
-    path: /api/v1/healthz   
+    path: /api/v1/healthz
     port: 5000
   initialDelaySeconds: 5
   periodSeconds: 10
@@ -50,3 +68,13 @@ readinessProbe:
 
 autoscaling:
   enabled: false
+  minReplicas: 1
+  maxReplicas: 5
+  targetCPUUtilizationPercentage: 80
+
+volumes: []
+volumeMounts: []
+
+nodeSelector: {}
+tolerations: []
+affinity: {}
