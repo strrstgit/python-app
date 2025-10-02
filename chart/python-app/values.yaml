@@ -3,7 +3,7 @@ replicaCount: 1
 image:
   repository: strrst30/python-app
   pullPolicy: IfNotPresent
-  tag: "latest"   # always pull the latest build
+  tag: latest   
 
 imagePullSecrets: []
 nameOverride: ""
