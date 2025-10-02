@@ -8,15 +8,15 @@ on:
       - feature-branch
 
 jobs:
-  build-and-push:
+  docker:
     runs-on: ubuntu-latest
 
     steps:
       - name: Shorten commit id
-        run: echo "COMMIT_ID=${GITHUB_SHA::6}" >> "$GITHUB_ENV"
+        shell: bash
+        run: |
+        echo "COMMIT_ID=${GITHUB_SHA::6}" >> "$GITHUB_ENV"
 
-      - name: Checkout code
-        uses: actions/checkout@v4
 
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
@@ -24,15 +24,10 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
           context: .
           push: true
           tags: strrst30/python-app:${{ env.COMMIT_ID }}
-     outputs:
-       commit_id: ${{ env.COMMIT_ID }}     
-           
+ 
