@@ -32,6 +32,5 @@ jobs:
         with:
           context: .
           push: true
-          tags: |
-            strrst30/python-app:${{ env.COMMIT_ID }}
-            strrst30/python-app:latest   
+          tags: strrst30/python-app:${{ env.COMMIT_ID }}
+           
