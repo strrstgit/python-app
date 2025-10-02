@@ -1,23 +1,18 @@
 replicaCount: 1
+
 image:
-  repository: strrstgit/python-app
+  repository: strrst30/python-app
   pullPolicy: IfNotPresent
-  tag: []
+  tag: "latest"   # always pull the latest build
+
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
-podAnnotations: {}
-podLabels: {}
-serviceAccount:
-  create: false
-  automount: true
-  annotations: {}
-  name: ""
-podSecurityContext: {}
-securityContext: {}
+
 service:
   type: ClusterIP
   port: 5000
+
 ingress:
   enabled: true
   className: "nginx"
@@ -28,25 +23,29 @@ ingress:
         - path: /
           pathType: Prefix
   tls: []
+
 resources:
   requests:
     cpu: 50m
     memory: 50M
+
 livenessProbe:
   httpGet:
-    path: /api/v1/healthz
-    port: http
+    path: /api/v1/healthz   
+    port: 5000
+  initialDelaySeconds: 10
+  periodSeconds: 10
+  timeoutSeconds: 2
+  failureThreshold: 3
+
 readinessProbe:
   httpGet:
-    path: /api/v1/healthz
-    port: http
+    path: /api/v1/healthz   
+    port: 5000
+  initialDelaySeconds: 5
+  periodSeconds: 10
+  timeoutSeconds: 2
+  failureThreshold: 3
+
 autoscaling:
   enabled: false
-  minReplicas: 1
-  maxReplicas: 100
-  targetCPUUtilizationPercentage: 80
-volumes: []
-volumeMounts: []
-nodeSelector: {}
-tolerations: []
-affinity: {}
