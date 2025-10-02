@@ -34,4 +34,4 @@ jobs:
           push: true
           tags: |
             strrst30/python-app:${{ env.COMMIT_ID }}
-            strrst30/python-app:latest   # ✅ stable tag for Helm
+            strrst30/python-app:latest   
